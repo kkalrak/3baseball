@@ -130,5 +130,17 @@ const translations = {
     }
 };
 
-// 현재 언어 설정 (기본값: 한국어)
-let currentLanguage = localStorage.getItem('gameLanguage') || 'ko';
+// 브라우저 언어 감지 함수
+function detectBrowserLanguage() {
+    const browserLang = navigator.language || navigator.userLanguage;
+    const langCode = browserLang.toLowerCase().split('-')[0];
+
+    // 지원하는 언어 목록
+    const supportedLanguages = ['ko', 'en', 'ja', 'zh'];
+
+    // 브라우저 언어가 지원 목록에 있으면 해당 언어 반환, 없으면 한국어
+    return supportedLanguages.includes(langCode) ? langCode : 'ko';
+}
+
+// 현재 언어 설정 (우선순위: localStorage > 브라우저 언어 > 기본값(한국어))
+let currentLanguage = localStorage.getItem('gameLanguage') || detectBrowserLanguage();

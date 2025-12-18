@@ -8,6 +8,15 @@ function updateLanguage(lang) {
     currentLanguage = lang;
     localStorage.setItem('gameLanguage', lang);
 
+    // HTML lang 속성 업데이트
+    const langMap = {
+        'ko': 'ko',
+        'en': 'en',
+        'ja': 'ja',
+        'zh': 'zh-CN'
+    };
+    document.documentElement.lang = langMap[lang] || lang;
+
     // data-i18n 속성을 가진 모든 요소 업데이트
     document.querySelectorAll('[data-i18n]').forEach(element => {
         const key = element.getAttribute('data-i18n');
